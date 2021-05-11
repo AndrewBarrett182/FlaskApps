@@ -10,5 +10,5 @@ def todo():
     all_todo = Todos.query.all()
     todo_string = "<h1>To do List: </h1>"
     for todo in all_todo:
-        todo_string += f"{todo.task} = {str(todo.complete)} <br><br>"
+        todo_string += f"Task: {todo.task} <br>Complete: {str(todo.complete)} <br><br>"
     return todo_string
