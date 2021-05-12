@@ -44,7 +44,7 @@ def register():
             else:
                 return f"Thank you {first_name} {last_name}!"
         if submit_date == True:
-            if date == None:
+            if date is None:
                 error = "Please enter in correct format"
             else:
                 return f"Here's the date: {date}"
