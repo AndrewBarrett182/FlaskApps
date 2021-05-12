@@ -1,18 +1,31 @@
 from application import app, db
-from application.models import Todos
-from flask import render_template
+from application.models import Todos, AddForm
+from flask import render_template, request
 
-@app.route('/')
-@app.route('/todos')
+@app.route('/', methods = ['GET'])
+@app.route('/todos', methods = ['GET'])
 def todo():
     return render_template('index.html', all_todo = Todos.query.all())
 
-@app.route('/add')
+@app.route('/add', methods=['GET', 'POST'])
 def add():
-    new_todo = Todos(task="New Todo")
-    db.session.add(new_todo)
-    db.session.commit()
-    return "Added new todo to database"
+    error = ''
+    form = AddForm()
+
+    if request.method == 'POST':
+        task = form.task.data
+        submit_task = form.submit_task.data
+
+        if submit_task == True:
+            if len(task) == 0:
+                error = "Please enter a task"
+            else:
+                new_todo = Todos(task=task)
+                db.session.add(new_todo)
+                db.session.commit()
+                return f"Added {task} to the to do list!"
+
+    return render_template('add.html', form=form, message=error)
 
 @app.route('/complete/<id>')
 def update(id):
