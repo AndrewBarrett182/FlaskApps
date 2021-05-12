@@ -1,6 +1,11 @@
 from application import app, db
 from application.models import Games
 
+@app.route('/')
+def home():
+    string = "<a href=http://localhost:5000/add>Add</a><br><br> <a href=http://localhost:5000/read>Read</a><br><br> <a href=http://localhost:5000/update>Update (add /name to change)</a><br><br> <a href=http://localhost:5000/delete>Delete</a><br><br> <a href=http://localhost:5000/count>Count</a><br><br>"
+    return string
+
 @app.route('/add')
 def add():
     new_game = Games(name="New Game")
