@@ -10,14 +10,14 @@ db = SQLAlchemy(app) # Declare SQLAlchemy object
 class Customers(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), nullable=False)
-    purchase = db.relationship('purchase', backref='customers')
+    purchase = db.relationship('Purchases', backref='customers')
 
 class Products(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), nullable=False)
     cost = db.Column(db.Integer, nullable=False)
     stock = db.Column(db.Integer, nullable=False)
-    purchase = db.relationship('purchase', backref='products')
+    purchase = db.relationship('Purchases', backref='products')
 
 class Purchases(db.Model):
     id = db.Column(db.Integer, primary_key=True)
