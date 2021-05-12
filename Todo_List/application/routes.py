@@ -28,11 +28,18 @@ def add():
     return render_template('add.html', form=form, message=error)
 
 @app.route('/complete/<id>')
-def update(id):
+def complete(id):
     to_do = Todos.query.filter_by(id=id).first()
     to_do.complete = True
     db.session.commit()
     return f"Completed todo {id}"
+
+@app.route('/incomplete/<id>')
+def incomplete(id):
+    to_do = Todos.query.filter_by(id=id).first()
+    to_do.complete = False
+    db.session.commit()
+    return f"Not completed todo {id}"
 
 @app.route('/delete/<id>')
 def delete(id):
