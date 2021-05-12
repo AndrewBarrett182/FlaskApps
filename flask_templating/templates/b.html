@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block body %}
+
+{% for i in users %}
+{% if 'b' in i.lower() %}
+<p>{{ i }}</p>
+{% endif %}
+{% endfor %}
+
+{% endblock body %}
