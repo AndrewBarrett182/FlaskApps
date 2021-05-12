@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block body %}
+
+{% for i in all_todo %}
+Task: {{ i.task }}
+<br>
+Complete: {{ i.complete }}
+{% if i.complete == True %}
+&#9989
+{% endif %}
+<br>
+<br>
+{% endfor %}
+
+{% endblock body %}
