@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <title>Simple form</title>
+    </head>
+    <body>
+        <div class='form'>
+            <form method='POST' action=''>
+                {{ form.hidden_tag() }}
+                {{ form.first_name.label }} {{ form.first_name }}
+                <br>
+                {{ form.last_name.label }} {{ form.last_name }}
+                <br>
+                {{ form.submit_name }} {{ message }}
+                <br>
+                <br>
+                {{ form.date.label }} {{ form.date }}
+                <br>
+                {{ form.submit_date }} {{ message }}
+                <br>
+                <br>
+                {{ form.integer.label }} {{ form.integer }}
+                <br>
+                {{ form.submit_integer }}
+                <br>
+                <br>
+                {{ form.decimal.label }} {{ form.decimal }}
+                <br>
+                {{ form.submit_decimal }}
+                <br>
+                <br>
+                {{ form.select.label }} {{ form.select }}
+                <br>
+                {{ form.submit_choice }}
+            </form>
+        </div>
+    </body>
+</html>
