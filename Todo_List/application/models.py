@@ -1,4 +1,4 @@
-from wtforms.fields.core import BooleanField
+from wtforms.fields.core import BooleanField, SelectField
 from application import db
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
@@ -15,3 +15,5 @@ class AddForm(FlaskForm):
     incomplete = SubmitField('Incomplete Task')
     delete = SubmitField('Delete Task')
     update = SubmitField('Update Task')
+    order = SelectField('Sort by', choices = [("Oldest", "Oldest"), ("Newest", "Newest"), ("Completed", "Completed"), ("Not Completed", "Not Completed")])
+    submit_order = SubmitField('Submit')

@@ -71,3 +71,31 @@ def update(id):
                 return redirect(url_for("todo"))
 
     return render_template('update.html', form=form, message=error)
+
+@app.route('/order', methods = ['GET', 'POST'])
+def order():
+    form = AddForm()
+    all_todo = Todos.query.all()
+
+    if request.method == 'POST':
+        order = form.order.data
+        submit = form.submit_order.data
+        if submit == True:
+            if order == "Oldest":
+                to_do = Todos.query.order_by(Todos.id).all()
+                
+                return render_template('index.html', form = form, all_todo = to_do)
+            elif order == "Newest":
+                to_do = Todos.query.order_by(Todos.id.desc()).all()
+                
+                return render_template('index.html', form = form, all_todo = to_do)
+            elif order == "Completed":
+                to_do = Todos.query.order_by(Todos.complete.desc()).all()
+                
+                return render_template('index.html', form = form, all_todo = to_do)
+            elif order == "Not Completed":
+                to_do = Todos.query.order_by(Todos.complete).all()
+                
+                return render_template('index.html', form = form, all_todo = to_do)
+
+    return render_template('index.html', form = form, all_todo = all_todo)
