@@ -1,6 +1,6 @@
 from application import app, db
 from application.models import Todos, AddForm
-from flask import render_template, request
+from flask import render_template, request, redirect, url_for
 
 @app.route('/', methods = ['GET', 'POST'])
 @app.route('/todos', methods = ['GET', 'POST'])
@@ -26,27 +26,23 @@ def add():
                 new_todo = Todos(task=task)
                 db.session.add(new_todo)
                 db.session.commit()
-                return f"Added {task} to the to do list!"
+                return redirect(url_for("todo"))
 
     return render_template('add.html', form=form, message=error)
 
 @app.route('/complete/<id>', methods = ['GET', 'POST'])
 def complete(id):
-    form = AddForm()
-    all_todo = Todos.query.all()
     to_do = Todos.query.filter_by(id=id).first()
     to_do.complete = True
     db.session.commit()
-    return render_template('index.html', form = form, all_todo = all_todo)
+    return redirect(url_for("todo"))
 
 @app.route('/incomplete/<id>', methods = ['GET', 'POST'])
 def incomplete(id):
-    form = AddForm()
-    all_todo = Todos.query.all()
     to_do = Todos.query.filter_by(id=id).first()
     to_do.complete = False
     db.session.commit()
-    return render_template('index.html', form = form, all_todo = all_todo)
+    return redirect(url_for("todo"))
 
 @app.route('/delete/<id>')
 def delete(id):
