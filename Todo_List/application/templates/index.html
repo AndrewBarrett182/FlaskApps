@@ -8,7 +8,18 @@
         {{ form.order.label }} {{ form.order }} {{ form.submit_order }}
     </form>
 </div>
-<br>
+
+{% if not_complete >= 3 %}
+<h3>More than 3 tasks are incomplete!</h3>
+{% endif %}
+
+{% if (not_complete == 0) and (length > 0) %}
+<h3>All tasks complete!</h3>
+{% endif %}
+
+{% if (not_complete == 0) and (length == 0) %}
+<h3>You have no tasks!</h3>
+{% endif %}
 
 {% for i in all_todo %}
 ID: {{ i.id }}

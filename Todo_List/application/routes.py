@@ -7,8 +7,10 @@ from flask import render_template, request, redirect, url_for
 def todo():
     form = AddForm()
     all_todo = Todos.query.all()
+    not_complete = Todos.query.filter_by(complete = False).count()
+    length = len(all_todo)
 
-    return render_template('index.html', form = form, all_todo = all_todo)
+    return render_template('index.html', form = form, all_todo = all_todo, not_complete = not_complete, length = length)
 
 @app.route('/add', methods=['GET', 'POST'])
 def add():
@@ -76,26 +78,20 @@ def update(id):
 def order():
     form = AddForm()
     all_todo = Todos.query.all()
+    not_complete = Todos.query.filter_by(complete = False).count()
+    length = len(all_todo)
 
     if request.method == 'POST':
         order = form.order.data
         submit = form.submit_order.data
         if submit == True:
             if order == "Oldest":
-                to_do = Todos.query.order_by(Todos.id).all()
-                
-                return render_template('index.html', form = form, all_todo = to_do)
+                all_todo = Todos.query.order_by(Todos.id).all()
             elif order == "Newest":
-                to_do = Todos.query.order_by(Todos.id.desc()).all()
-                
-                return render_template('index.html', form = form, all_todo = to_do)
+                all_todo = Todos.query.order_by(Todos.id.desc()).all()
             elif order == "Completed":
-                to_do = Todos.query.order_by(Todos.complete.desc()).all()
-                
-                return render_template('index.html', form = form, all_todo = to_do)
+                all_todo = Todos.query.order_by(Todos.complete.desc()).all()
             elif order == "Not Completed":
-                to_do = Todos.query.order_by(Todos.complete).all()
-                
-                return render_template('index.html', form = form, all_todo = to_do)
+                all_todo = Todos.query.order_by(Todos.complete).all()
 
-    return render_template('index.html', form = form, all_todo = all_todo)
+    return render_template('index.html', form = form, all_todo = all_todo, not_complete = not_complete, length = length)
