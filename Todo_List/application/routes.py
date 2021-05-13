@@ -41,12 +41,15 @@ def complete(id):
     db.session.commit()
     return render_template('index.html', form = form, all_todo = all_todo)
 
-@app.route('/incomplete/<id>')
+@app.route('/incomplete/<id>', methods = ['GET', 'POST'])
 def incomplete(id):
+    error = ''
+    form = AddForm()
+    all_todo = Todos.query.all()
     to_do = Todos.query.filter_by(id=id).first()
     to_do.complete = False
     db.session.commit()
-    return f"Not completed todo {id}"
+    return render_template('index.html', form = form, all_todo = all_todo)
 
 @app.route('/delete/<id>')
 def delete(id):

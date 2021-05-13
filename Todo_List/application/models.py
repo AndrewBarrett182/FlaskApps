@@ -12,3 +12,4 @@ class AddForm(FlaskForm):
     task = StringField('Task')
     submit_task = SubmitField('Add Task')
     complete = SubmitField('Complete Task')
+    incomplete = SubmitField('Incomplete Task')
