@@ -1,17 +1,23 @@
 {% extends "layout.html" %}
 {% block body %}
-
+<div class='form'>
 {% for i in all_todo %}
 ID: {{ i.id }}
 <br>
 Task: {{ i.task }}
 <br>
+
 Complete: {{ i.complete }}
 {% if i.complete == True %}
 &#9989
 {% endif %}
 <br>
+    <form method='POST' action="{{ url_for('complete', id = i.id) }}">
+        {{ form.hidden_tag() }}
+        {{ form.complete }}
+    </form>
+<br>
 <br>
 {% endfor %}
-
+</div>
 {% endblock body %}
