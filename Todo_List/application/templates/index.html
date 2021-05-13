@@ -11,6 +11,9 @@ Complete: {{ i.complete }}
 {% if i.complete == True %}
 &#9989
 {% endif %}
+{% if i.complete == False %}
+&#10060
+{% endif %}
 <br>
     <form method='POST' action="{{ url_for('complete', id = i.id) }}">
         {{ form.hidden_tag() }}

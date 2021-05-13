@@ -5,7 +5,6 @@ from flask import render_template, request
 @app.route('/', methods = ['GET', 'POST'])
 @app.route('/todos', methods = ['GET', 'POST'])
 def todo():
-    error = ''
     form = AddForm()
     all_todo = Todos.query.all()
 
@@ -33,7 +32,6 @@ def add():
 
 @app.route('/complete/<id>', methods = ['GET', 'POST'])
 def complete(id):
-    error = ''
     form = AddForm()
     all_todo = Todos.query.all()
     to_do = Todos.query.filter_by(id=id).first()
@@ -43,7 +41,6 @@ def complete(id):
 
 @app.route('/incomplete/<id>', methods = ['GET', 'POST'])
 def incomplete(id):
-    error = ''
     form = AddForm()
     all_todo = Todos.query.all()
     to_do = Todos.query.filter_by(id=id).first()
