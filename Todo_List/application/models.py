@@ -13,3 +13,5 @@ class AddForm(FlaskForm):
     submit_task = SubmitField('Add Task')
     complete = SubmitField('Complete Task')
     incomplete = SubmitField('Incomplete Task')
+    delete = SubmitField('Delete Task')
+    update = SubmitField('Update Task')

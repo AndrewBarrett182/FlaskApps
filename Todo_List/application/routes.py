@@ -44,9 +44,30 @@ def incomplete(id):
     db.session.commit()
     return redirect(url_for("todo"))
 
-@app.route('/delete/<id>')
+@app.route('/delete/<id>', methods = ['GET', 'POST'])
 def delete(id):
     to_do = Todos.query.filter_by(id=id).first()
     db.session.delete(to_do)
     db.session.commit()
-    return f"Deleted: {to_do.task} from database."
+    return redirect(url_for("todo"))
+
+@app.route('/update/<id>', methods = ['GET', 'POST'])
+def update(id):
+
+    error = ''
+    form = AddForm()
+
+    if request.method == 'POST':
+        task = form.task.data
+        update = form.update.data
+
+        if update == True:
+            if len(task) == 0:
+                error = "Please enter a task"
+            else:
+                to_do = Todos.query.filter_by(id=id).first()
+                to_do.task = task
+                db.session.commit()
+                return redirect(url_for("todo"))
+
+    return render_template('update.html', form=form, message=error)

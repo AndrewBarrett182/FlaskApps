@@ -23,6 +23,10 @@ Complete: {{ i.complete }}
         {{ form.hidden_tag() }}
         {{ form.incomplete }}
     </form>
+    <form method='POST' action="{{ url_for('delete', id = i.id) }}">
+        {{ form.hidden_tag() }}
+        {{ form.delete }}
+    </form>
 <br>
 <br>
 {% endfor %}
